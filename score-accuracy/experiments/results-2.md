@@ -6,7 +6,7 @@ Checked how errors change as the minimum sample size varies, checked out the cur
 
 ## What kind of performance does a pure greater than sample have?
 
-`Checked greater than, found 0.082856 mse, 0.097037 me`
+`Checked greater than, found 0.082856 mean squared error, 0.097037 mean error`
 
 ## How does error change as we increase min_n?
 
