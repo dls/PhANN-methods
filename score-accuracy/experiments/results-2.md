@@ -5,7 +5,6 @@ Checked how errors change as the minimum sample size varies, checked out the cur
 ## How does error change as we increase min_n?
 
 | Minimum sample size | Mean Squared Error | Mean Error |
-|                     |                    |            |
 |---------------------|:------------------:|-----------:|
 | 1                   | 0.049126           |   0.099203 |
 | 2                   | 0.04929            |   0.099444 |
