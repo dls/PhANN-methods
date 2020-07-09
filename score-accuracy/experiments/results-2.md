@@ -2,6 +2,10 @@
 
 Checked how errors change as the minimum sample size varies, checked out the current selection algorithm (greater than) performs.
 
+## What kind of performance does a pure greater than sample have?
+
+Checked greater than, found 0.082856 mse, 0.097037 me
+
 ## How does error change as we increase min_n?
 
 | Minimum sample size | Mean Squared Error | Mean Error |
@@ -56,7 +60,3 @@ Checked how errors change as the minimum sample size varies, checked out the cur
 | 48                  | 0.053945           |   0.108227 |
 | 49                  | 0.053993           |   0.108297 |
 | 50                  | 0.053989           |   0.108342 |
-
-## What kind of performance does a pure greater than sample have?
-
-Checked greater than, found 0.082856 mse, 0.097037 me
