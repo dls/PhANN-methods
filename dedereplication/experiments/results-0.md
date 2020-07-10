@@ -4,6 +4,9 @@ An autoencoder setup was adapted from the Julia model zoo. [Code](../autoencoder
 
 ## How many hidden values?
 
+The top line of each chart shows randomly sampled input data, the
+bottom line shows inputs as reconstructed by the autoencoder.
+
 64 hiddens, 0.007 error:
 ![Images sampled from the 64 hidden neuron model](images/sample_2layer_ae-64_0.007.png)
 
