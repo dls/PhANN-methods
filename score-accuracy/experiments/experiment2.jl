@@ -1,7 +1,7 @@
 using Serialization
 
-true_pos_ = Serialization.deserialize("true_pos.dat")
-false_pos_ = Serialization.deserialize("false_pos.dat")
+true_pos_ = Serialization.deserialize("../true_pos.dat")
+false_pos_ = Serialization.deserialize("../false_pos.dat")
 
 function find_delta()
   true_pos = true_pos_
@@ -103,7 +103,12 @@ function find_delta()
 
   function pretty_gt()
     err, serr = check_gt()
-    println("Checked greater than, found $(display(serr)) mse, $(display(err)) me")
+    println("Checked greater than, found $(display(serr)) mean squared error, $(display(err)) mean error")
+  end
+
+  function pretty_all()
+    err, serr = check_all(10, 1)
+    println("Checked use of all data, found $(display(serr)) mean squared error, $(display(err)) mean error")
   end
 
   for i=1:50
@@ -111,6 +116,7 @@ function find_delta()
   end
 
   pretty_gt()
+  pretty_all()
 end
 
 find_delta()

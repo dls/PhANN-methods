@@ -8,6 +8,10 @@ Checked how errors change as the minimum sample size varies, checked out the cur
 
 `Checked greater than, found 0.082856 mean squared error, 0.097037 mean error`
 
+## What kind of performance does the use of all data in a category have?
+
+`Checked use of all data, found 0.082962 mean squared error, 0.165991 mean error`
+
 ## How does error change as we increase min_n?
 
 | Minimum sample size | Mean Squared Error | Mean Error |
