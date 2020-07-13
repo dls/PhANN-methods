@@ -2,6 +2,8 @@
 
 Checked how errors change as the minimum sample size varies, checked out the current selection algorithm (greater than) performs.
 
+*Note:* These results double-sampled from the test set and so should be taken with a grain of salt.
+
 [Code](experiment2.jl)
 
 ## What kind of performance does a pure greater than sample have?
