@@ -110,15 +110,11 @@ function train(args)
   m
 end
 
-function prepare_results(models)
-  args = Args3()
-
-  _,test_data = getdata(args)
-
+function score_data(models, data)
   true_pos  = [[], [], [], [], [], [], [], [], [], []]
   false_pos = [[], [], [], [], [], [], [], [], [], []]
 
-  for (x, y) in test_data
+  for (x, y) in data
     res = zeros(size(y))
     for m in models
       res .+= m(x)
@@ -138,6 +134,23 @@ function prepare_results(models)
   return true_pos, false_pos
 end
 
+function score_validation_set(models)
+  _,test_data = getdata(Args3())
+  score_data(models, test_data)
+end
+
+function score_test_set(models)
+  args = Args3()
+
+  xtest, ytest = MLDatasets.MNIST.testdata(Float32)
+  xtest = Flux.flatten(xtest)
+  ytest = onehotbatch(ytest, 0:9)
+
+  data = DataLoader(xtest, ytest, batchsize=args.batchsize)
+
+  score_data(models, data)
+end
+
 function train_models(; kws...)
   # Initializing Model parameters
   args = Args3(; kws...)
@@ -150,14 +163,17 @@ function train_models(; kws...)
 
   println("Done training!")
 
-  true_pos, false_pos = prepare_results(models)
+  true_pos, false_pos = score_validation_set(models)
+  test_true_pos, test_false_pos = score_test_set(models)
 
-  models, true_pos, false_pos
+  models, true_pos, false_pos, test_true_pos, test_false_pos
 end
 
 cd(@__DIR__)
-models, true_pos, false_pos = train_models()
+models, true_pos, false_pos, test_true_pos, test_false_pos = train_models()
 
 Serialization.serialize("models.dat", models)
 Serialization.serialize("true_pos.dat", true_pos)
 Serialization.serialize("false_pos.dat", false_pos)
+Serialization.serialize("test_true_pos.dat", test_true_pos)
+Serialization.serialize("test_false_pos.dat", test_false_pos)
