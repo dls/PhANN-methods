@@ -25,21 +25,23 @@ end
 end
 
 function getdata(args)
+  static_shuffle = Serialization.deserialize("shuffled_train_idxs.dat")
+
   # Loading Dataset
   xtrain_, ytrain_ = MLDatasets.MNIST.traindata(Float32)
-  xtest, ytest = MLDatasets.MNIST.testdata(Float32)
+
+  # using 1/6th of the training set as a validation set:
+  xtest, ytest = xtrain_[:, :, static_shuffle[50_001:60_000]], ytrain_[static_shuffle[50_001:60_000]]
 
   # Phanny-style segmentation
-  segment_size = 6_000
+  segment_size = 5_000
   segment_start = args.segment * segment_size
   segment_end = segment_start + segment_size
 
-  static_shuffle = Serialization.deserialize("shuffled_train_idxs.dat")
-
-  xtrain, ytrain = zeros(Float32, (28, 28, 54_000)), zeros(Float32, 54_000)
+  xtrain, ytrain = zeros(Float32, (28, 28, 45_000)), zeros(Float32, 45_000)
   i = 1
   offset = 0
-  for i=1:54_000
+  for i=1:45_000
     if i == segment_start
       offset = segment_size
     end
