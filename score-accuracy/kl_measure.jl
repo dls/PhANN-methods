@@ -48,8 +48,8 @@ function seek_alpha(dnm, m, n)
   cuttoff(a) = c(a) * sqrt((n + m) / (n * m))
 
   a = 2
-  for step=2:15
-    step = 10.0^(-step)
+  for step_size=2:15
+    step = 10.0^(-step_size)
     while (a - step) > 0 && dnm > cuttoff(a - step)
       a -= step
     end
@@ -79,7 +79,7 @@ function main()
   for i=1:10
     m = length(test1_pos[i]) + length(test1_neg[i])
     n = length(test2_pos[i]) + length(test2_neg[i])
-    println("sqrt(-log(a/2)/2) * sqrt($(n+m) / $(n*m)) = $(ks_values[i])    [a should be equal to $(alpha_values[i])]")
+    println("sqrt(-log(a/2)/2) * sqrt($(n+m) / $(n*m)) = $(ks_values[i])    [a should be equal to $(alpha_values[i]). m=$m, n=$n]")
   end
 end
 
