@@ -13,21 +13,28 @@ function percent_greater_than(x, pos, neg)
   return pos_len / (pos_len + neg_len)
 end
 
-function kl_i(x, i)
-  p = percent_greater_than(x, test1_pos[i], test1_neg[i])
-  q = percent_greater_than(x, test2_pos[i], test2_neg[i]) + 1e-30 # prevent divide by 0
-  return p * log(p/q)
+function kl(pos1, neg1, pos2, neg2)
+  sum = 0
+  for i in 1:10
+    for _score in 1:100
+      score = _score / 10
+      p = percent_greater_than(score, pos1[i], neg1[i])
+      q = percent_greater_than(score, pos2[i], neg2[i]) + 1e-30 # prevent divide by 0
+
+      kl = p * log(p/q)
+      if !isnan(kl)
+        sum += kl
+      end
+    end
+  end
+  return sum
 end
 
 function main()
-  kl = 0
-  for i in 1:10
-    for _x in 1:100
-      kl += kl_i(_x/100, i)
-    end
-  end
-
-  @show kl # -6.6149230736255715
+  dxy = kl(test1_pos, test1_neg, test2_pos, test2_neg)
+  @show dxy # -4.141558947348085
+  dyx = kl(test2_pos, test2_neg, test1_pos, test1_neg)
+  @show dyx # 4.315494163156585
 end
 
 main()
